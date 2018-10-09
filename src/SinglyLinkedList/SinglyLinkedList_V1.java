@@ -1,3 +1,5 @@
+package SinglyLinkedList;
+
 /**
  * A class to represent a singly linked list.
  * This class models the basic implementation of a singly linked list
