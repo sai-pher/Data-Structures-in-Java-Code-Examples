@@ -1,72 +1,48 @@
 package Lists;
 
+import java.util.Collection;
+
 /**
  * A class to represent a singly linked list.
  * This class models the basic implementation of a singly linked list
  * with only basic operations (add and remove) implemented.
  * This is to serve as a guide for data structures students.
  */
-public class SinglyLinkedList {
+public class SinglyLinkedList<T> extends AbstractList<T> {
 
-    private Node head = null;
+    private Node<T> head;
+    private Node<T> tail = null;
 
     // ================================================================
-    private Node tail = null;
 
     public SinglyLinkedList() {
-
+        head = new Node<>();
+        tail = new Node<>();
     }
 
-    public SinglyLinkedList(Node head, Node tail) {
+    public SinglyLinkedList(Node<T> head, Node<T> tail) {
         this.head = head;
         this.tail = tail;
     }
 
-    public static void main(String[] args) {
+    // ================================================================
 
-        // create a singly linked list
-        SinglyLinkedList list = new SinglyLinkedList();
-
-        // insert 10 numbers into the list
-        for (int i = 0; i < 10; i++) {
-            list.add(i);
-        }
-
-
-        // System.out.println(list);
-
-        int numToRemove = 0;
-        System.out.println("\nremoving: " + numToRemove);
-        boolean bool = list.remove(numToRemove);
-
-        // print out the content of the list here:
-        // System.out.println("\n" + bool + "\n" +list);
-
-    }
-
-    public Node getHead() {
+    public Node<T> getHead() {
         return head;
     }
 
-    public void setHead(Node head) {
-        this.head = head;
-    }
-
-    public Node getTail() {
+    public Node<T> getTail() {
         return tail;
-    }
-
-    public void setTail(Node tail) {
-        this.tail = tail;
     }
 
     /**
      * A method to add new data to a singly linked list.
      *
      * @param data new data to be added to list.
+     * @return
      */
-    public void add(int data) {
-        Node newData = new Node(data);
+    public boolean add(T data) {
+        Node<T> newData = new Node<T>(data);
 
         if (this.isEmpty()) {
             head = newData;
@@ -80,6 +56,47 @@ public class SinglyLinkedList {
             head = newData;
         }
 
+        return true;
+    }
+
+    @Override
+    public void add(int index, T item) {
+        // Write code here
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends T> items) {
+        // Write code here
+        return false;
+    }
+
+    @Override
+    public T get(int index) {
+        return null;
+    }
+
+    @Override
+    public T set(int index, T item) {
+        // Write code here
+        return null;
+    }
+
+    @Override
+    public int indexOf(T item) {
+        // Write code here
+        return 0;
+    }
+
+    @Override
+    public int lastIndexOf(T item) {
+        // Write code here
+        return 0;
+    }
+
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        // Write code here
+        return null;
     }
 
     /**
@@ -88,22 +105,23 @@ public class SinglyLinkedList {
      * @param data data to be removed from the list.
      * @return boolean true or false denoting if the data has been removed.
      */
-    public boolean remove(int data) {
+    @Override
+    public boolean remove(Object data) {
         if (this.isEmpty()) {
             return false;
         }
         else {
-            Node cur = head;
+            Node<T> cur = head;
 
             // loop through list: use cur value to update loop condition
             if (!cur.equals(tail) & cur.hasNext()) {
 
                 // do ensures it checks once even if cur is the tail.
                 do {
-                    Node next = cur.getNext();  // assign cur's next to use better.
+                    Node<T> next = cur.getNext();  // assign cur's next to use better.
 
                     // check if the data in cur is equal to the data we are trying to remove.
-                    if (cur.getData() == data) {
+                    if (cur.getData().equals(data)) {
 
                         // check if cur is the first thing in the list.
                         if (cur.equals(head) & cur.equals(tail)) {
@@ -120,7 +138,7 @@ public class SinglyLinkedList {
                     }
 
                     // check if the data in next is equal to the data we are trying to remove.
-                    else if (next.getData() == data) {
+                    else if (next.getData().equals(data)) {
 
                         // check if next refers to tail.
                         if (next.equals(tail)) {
@@ -132,7 +150,7 @@ public class SinglyLinkedList {
                         // check if next refers to something else
                         // and if its next is equal to what we are looking for.
                         // NOTE: this case removes a node if it is in the middle of the list.
-                        else if (next.hasNext() & next.getData() == data) {
+                        else if (next.hasNext() & next.getData().equals(data)) {
 
                             // make sure cur's next refers to something else
                             if (next.hasNext()) {
@@ -158,7 +176,24 @@ public class SinglyLinkedList {
         return false;
     }
 
-    // helper methods
+    /**
+     * A method to count the number of items in the list.
+     *
+     * @return the size of the list.
+     */
+    @Override
+    public int size() {
+        // Write code here:
+        return 0;
+    }
+
+    /**
+     * @return boolean true or false if list is empty.
+     */
+    @Override
+    public boolean isEmpty() {
+        return head == null & tail == null;
+    }
 
     /**
      * A method to loop through the list and print out all the data in the list.
@@ -167,55 +202,42 @@ public class SinglyLinkedList {
         // Write code here:
     }
 
-    /**
-     * A method to count the number of items in the list.
-     *
-     * @return the size of the list.
-     */
-    public int getListSize() {
-        // Write code here:
-        return 0;
-    }
-
-    /**
-     * @return boolean true or false if list is empty.
-     */
-    public boolean isEmpty() {
-        return head == null & tail == null;
-    }
 
     // ================================================================
 
     /**
      * Node class of a singly linked list.
      */
-    private class Node {
+    private static class Node<T> {
 
-        private int data;           // data to hold
-        private Node next = null;   // reference to the next node
+        private T data;           // data to hold
+        private Node<T> next = null;   // reference to the next node
 
-        Node(int data) {
+        public Node() {
+        }
+
+        public Node(T data) {
             this.data = data;
         }
 
-        public Node(int data, Node next) {
+        public Node(T data, Node<T> next) {
             this.data = data;
             this.next = next;
         }
 
-        int getData() {
+        T getData() {
             return data;
         }
 
-        void setData(int data) {
+        void setData(T data) {
             this.data = data;
         }
 
-        Node getNext() {
+        Node<T> getNext() {
             return next;
         }
 
-        void setNext(Node next) {
+        void setNext(Node<T> next) {
             this.next = next;
         }
 
@@ -225,27 +247,25 @@ public class SinglyLinkedList {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Node node = (Node) o;
-            return data == node.data;
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Node<?> node = (Node<?>) o;
+
+            if (!data.equals(node.data)) return false;
+            return next != null ? next.equals(node.next) : node.next == null;
         }
-//
-//        @Override
-//        public int hashCode() {
-//            return Objects.hash(data);
-//        }
+
+        @Override
+        public int hashCode() {
+            int result = data.hashCode();
+            result = 31 * result + (next != null ? next.hashCode() : 0);
+            return result;
+        }
 
         @Override
         public String toString() {
-            return "Node{" +
-                    "\ndata=" + data +
-                    ", next=>" + next +
-                    "}";
+            return String.format("Node{\ndata=%s, next=>%s}", data, next);
         }
     }
 }

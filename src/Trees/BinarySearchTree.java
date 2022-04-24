@@ -5,23 +5,15 @@ import java.util.Objects;
 /**
  * A class to model a basic binary search tree.
  */
-public class BinarySearchTree_V1 {
+public class BinarySearchTree {
 
     private Node root;
 
     /**
      * @param data Initializes root for binary tree.
      */
-    public BinarySearchTree_V1(int data) {
+    public BinarySearchTree(int data) {
         this.root = new Node(data);
-    }
-
-    public static void main(String[] args) {
-
-        BinarySearchTree_V1 tree = new BinarySearchTree_V1(7);
-
-        // test tree methods here.
-
     }
 
     /**
@@ -191,7 +183,7 @@ public class BinarySearchTree_V1 {
     /**
      * Inner node class to build a binary search tree out of.
      */
-    private class Node {
+    private static class Node {
         Integer data = null;
         Node    leftChild;
         Node    rightChild;

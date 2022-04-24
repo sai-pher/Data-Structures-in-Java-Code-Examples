@@ -1,73 +1,99 @@
 package Lists;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 
-public class ArrayList {
+public class ArrayList<T> extends AbstractList<T> {
 
-    int   length = 10;
-    int   size   = 0;
-    int[] list;
-
-    // ================================================================
-
-    public ArrayList(int length) {
-        this.length = length;
-        list = new int[length];
-    }
-
-    public ArrayList(int[] list) {
-        this.list = list;
-        length = list.length;
-    }
+    int   length;
+    int   size;
+    Object[] list;
 
     // ================================================================
 
     public ArrayList() {
-        list = new int[length];
+        this.length = DEFAULT_CAPACITY;
+        this.size = 0;
+        list = new Object[length];
     }
 
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int length) {
+    public ArrayList(int length) {
         this.length = length;
-    }
-
-    public int[] getList() {
-        return list;
-    }
-
-    public void setList(int[] list) {
-        this.list = list;
+        this.size = 0;
+        list = new Object[this.length];
     }
 
     // ================================================================
 
-    public void insert(int num) {
+    @Override
+    public int size() {
+        return size;
+    }
 
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public boolean add(T item) {
+        return super.add(item);
+    }
+
+    @Override
+    public void add(int index, T item) {
         if (shouldGrow()) {
             grow();
         }
         else {
-            list[size] = num;
-            size++;
+            list[index] = item;
+            size += 1;
         }
     }
 
-    public int get(int index) {
-
-        return list[index];
+    @Override
+    public boolean addAll(Collection<? extends T> items) {
+        for (T item : items) {
+            add(item);
+        }
+        return true;
     }
 
-    public void delete(int index) {
+    @Override
+    public T get(int index) {
 
-        list[index] = Integer.parseInt(null);
+        return (T) list[index];
     }
 
-    public int size() {
-        return size;
+    @Override
+    public T set(int index, T item) {
+        // code here
+        return null;
+    }
+
+    @Override
+    public boolean remove(Object item) {
+        // code here
+        return false;
+    }
+
+    @Override
+    public int indexOf(T item) {
+        // code here
+        return 0;
+    }
+
+    @Override
+    public int lastIndexOf(T item) {
+        // code here
+        return 0;
+    }
+
+    @Override
+    public List<T> subList(int fromIndex, int toIndex) {
+        // code here
+        return null;
     }
 
     // ================================================================
@@ -75,7 +101,7 @@ public class ArrayList {
     private void grow() {
 
         int   temLength = length * 2;
-        int[] tempList  = new int[temLength];
+        Object[] tempList  = new Object[temLength];
 
         for (int i = 0; i < length; i++) {
             tempList[i] = list[i];
@@ -97,16 +123,18 @@ public class ArrayList {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ArrayList)) return false;
-        ArrayList arrayList = (ArrayList) o;
-        return length == arrayList.length &&
-               Arrays.equals(list, arrayList.list);
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ArrayList<?> arrayList = (ArrayList<?>) o;
+
+        if (length != arrayList.length) return false;
+        if (size != arrayList.size) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(list, arrayList.list);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(length);
-        result = 31 * result + Arrays.hashCode(list);
-        return result;
+        return length;
     }
 }

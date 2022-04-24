@@ -2,7 +2,7 @@ package Lists;
 
 import java.util.Collection;
 
-public interface List<T> extends Collection<T> {
+public interface List<T> {
 
 /** Positional access */
 
