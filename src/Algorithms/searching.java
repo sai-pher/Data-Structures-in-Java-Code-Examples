@@ -1,4 +1,4 @@
-package SortingAndSearchingAlgorithms;
+package Algorithms;
 
 public class searching {
 

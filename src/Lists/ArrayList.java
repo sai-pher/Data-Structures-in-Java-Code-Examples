@@ -1,4 +1,4 @@
-package ArrayList;
+package Lists;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -11,9 +11,9 @@ public class ArrayList {
 
     // ================================================================
 
-    public ArrayList(int LENGTH) {
-        this.length = LENGTH;
-        list = new int[LENGTH];
+    public ArrayList(int length) {
+        this.length = length;
+        list = new int[length];
     }
 
     public ArrayList(int[] list) {

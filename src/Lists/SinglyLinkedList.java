@@ -1,4 +1,4 @@
-package SinglyLinkedList;
+package Lists;
 
 /**
  * A class to represent a singly linked list.
@@ -6,18 +6,18 @@ package SinglyLinkedList;
  * with only basic operations (add and remove) implemented.
  * This is to serve as a guide for data structures students.
  */
-public class SinglyLinkedList_V1 {
+public class SinglyLinkedList {
 
     private Node head = null;
 
     // ================================================================
     private Node tail = null;
 
-    public SinglyLinkedList_V1() {
+    public SinglyLinkedList() {
 
     }
 
-    public SinglyLinkedList_V1(Node head, Node tail) {
+    public SinglyLinkedList(Node head, Node tail) {
         this.head = head;
         this.tail = tail;
     }
@@ -25,7 +25,7 @@ public class SinglyLinkedList_V1 {
     public static void main(String[] args) {
 
         // create a singly linked list
-        SinglyLinkedList_V1 list = new SinglyLinkedList_V1();
+        SinglyLinkedList list = new SinglyLinkedList();
 
         // insert 10 numbers into the list
         for (int i = 0; i < 10; i++) {
